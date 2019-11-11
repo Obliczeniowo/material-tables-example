@@ -53,7 +53,59 @@ describe('SortingMaterialTableComponent', () => {
 
       for (let i = 0; i < data.length; i++) {
         console.log(data[i].nativeElement.innerText, sortedData[i].nativeElement.innerText);
-        if (JSON.stringify(data[i].nativeElement.innerText) !== JSON.stringify(sortedData[i].nativeElement.innerText)) {
+        if (data[i].nativeElement.innerText !== sortedData[i].nativeElement.innerText) {
+          expect(false).toBeTruthy();
+          break;
+        }
+      }
+      expect(true).toBeTruthy();
+    });
+
+  });
+
+  describe('sorting Name column', () => {
+
+    beforeEach(() => {
+      const column: DebugElement = fixture.debugElement.query(By.css('.mat-header-cell.mat-column-name'));
+      console.log('column', column.nativeElement);
+      column.triggerEventHandler('click', {});
+      fixture.detectChanges();
+    });
+
+    it('Should be sorted', () => {
+      const data: DebugElement[] = fixture.debugElement.queryAll(By.css('.mat-cell.cdk-column-name'));
+      const sortedData: DebugElement[] =
+        data.sort((a, b) => a.nativeElement.innerText.localeCompare(b.nativeElement.innerText));
+
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].nativeElement.innerText, sortedData[i].nativeElement.innerText);
+        if (data[i].nativeElement.innerText !== sortedData[i].nativeElement.innerText) {
+          expect(false).toBeTruthy();
+          break;
+        }
+      }
+      expect(true).toBeTruthy();
+    });
+
+  });
+
+  describe('sorting surname column', () => {
+
+    beforeEach(() => {
+      const column: DebugElement = fixture.debugElement.query(By.css('.mat-header-cell.mat-column-surname'));
+      console.log('column', column.nativeElement);
+      column.triggerEventHandler('click', {});
+      fixture.detectChanges();
+    });
+
+    it('Should be sorted', () => {
+      const data: DebugElement[] = fixture.debugElement.queryAll(By.css('.mat-cell.cdk-column-surname'));
+      const sortedData: DebugElement[] =
+        data.sort((a, b) => a.nativeElement.innerText.localeCompare(b.nativeElement.innerText));
+
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].nativeElement.innerText, sortedData[i].nativeElement.innerText);
+        if (data[i].nativeElement.innerText !== sortedData[i].nativeElement.innerText) {
           expect(false).toBeTruthy();
           break;
         }
