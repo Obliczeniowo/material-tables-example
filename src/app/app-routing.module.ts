@@ -1,4 +1,3 @@
-import { MatTableExamplesComponent } from './material-tables-examples/mat-table-examples/mat-table-examples.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
