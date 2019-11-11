@@ -4,6 +4,7 @@ import { TableDragAndDropComponent } from './table-drag-and-drop/table-drag-and-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TwoTablesDragAndDropComponent } from './two-tables-drag-and-drop.component';
+import { By } from '@angular/platform-browser';
 
 describe('TwoTablesDragAndDropComponent', () => {
   let component: TwoTablesDragAndDropComponent;
@@ -35,7 +36,7 @@ describe('TwoTablesDragAndDropComponent', () => {
 
   describe('TwoTablesDragAndDropComponent', () => {
     beforeEach(() => {
-      component.secondTable.dataSource.data = studentsService.data;
+      component.secondTable.dataSource.data = [...studentsService.data];
       fixture.detectChanges();
     });
 
