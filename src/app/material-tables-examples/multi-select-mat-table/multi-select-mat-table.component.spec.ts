@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MultiSelectMatTableComponent } from './multi-select-mat-table.component';
-import { MatTableModule, MatCheckboxModule } from '@angular/material';
+import { MatTableModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
 
 describe('MultiSelectMatTableComponent', () => {
   let component: MultiSelectMatTableComponent;
@@ -13,6 +13,7 @@ describe('MultiSelectMatTableComponent', () => {
       imports: [
         MatTableModule,
         MatCheckboxModule,
+        MatTooltipModule
       ]
     })
     .compileComponents();

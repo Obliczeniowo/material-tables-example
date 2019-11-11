@@ -1,3 +1,4 @@
+import { MaterialModule } from './../../../material/material.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableDragAndDropComponent } from './table-drag-and-drop.component';
@@ -8,7 +9,10 @@ describe('TableDragAndDropComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableDragAndDropComponent ]
+      declarations: [ TableDragAndDropComponent ],
+      imports: [
+        MaterialModule
+      ]
     })
     .compileComponents();
   }));
