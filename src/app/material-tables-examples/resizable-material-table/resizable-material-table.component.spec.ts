@@ -1,3 +1,4 @@
+import { StudentsService } from './../mat-table-examples/Services/students.service';
 import { MaterialModule } from './../../material/material.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -7,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('ResizableMaterialTableComponent', () => {
   let component: ResizableMaterialTableComponent;
   let fixture: ComponentFixture<ResizableMaterialTableComponent>;
+  const studentsService: StudentsService = new StudentsService();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -14,6 +16,9 @@ describe('ResizableMaterialTableComponent', () => {
       imports: [
         MaterialModule,
         BrowserAnimationsModule
+      ],
+      providers: [
+        StudentsService
       ]
     })
     .compileComponents();
@@ -27,5 +32,9 @@ describe('ResizableMaterialTableComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have some data', () => {
+    expect(fixture.elementRef.nativeElement.querySelector('mat-table').innerText).toContain(studentsService.data[0].name);
   });
 });
