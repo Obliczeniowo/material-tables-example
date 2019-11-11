@@ -12,7 +12,7 @@ describe('TwoTablesDragAndDropComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TwoTablesDragAndDropComponent, TableDragAndDropComponent ],
+      declarations: [TwoTablesDragAndDropComponent, TableDragAndDropComponent],
       imports: [
         MaterialModule
       ],
@@ -20,7 +20,7 @@ describe('TwoTablesDragAndDropComponent', () => {
         StudentsService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -39,8 +39,52 @@ describe('TwoTablesDragAndDropComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should contain some data', () => {
-      return expect(fixture.elementRef.nativeElement.querySelectorAll('mat-table')[1].innerText).toContain(studentsService.data[0].name);
+    it('second table should contain some data', () => {
+      expect(fixture.elementRef.nativeElement.querySelectorAll('mat-table')[1].innerText).toContain(studentsService.data[0].name);
+    });
+
+    it('first table should not contain any data', () => {
+      expect(
+        fixture.elementRef.nativeElement.querySelectorAll('mat-table')[0]
+          .innerText.search(studentsService.data[0].name) === -1).toBeTruthy();
+    });
+
+    // test of first button that move data from right table to left one
+    describe('TwoTableDragAndDropComponent -> testing moving table elements from second to first table', () => {
+      beforeEach(() => {
+        const button: HTMLButtonElement = fixture.elementRef.nativeElement.querySelectorAll('button')[0];
+        button.click();
+        fixture.detectChanges();
+      });
+
+      it('Should first table have data', () => {
+        expect(fixture.elementRef.nativeElement.querySelectorAll('mat-table')[0].innerText).toContain(studentsService.data[0].name);
+      });
+
+      it('second table should not contain any data', () => {
+        expect(
+          fixture.elementRef.nativeElement.querySelectorAll('mat-table')[1]
+            .innerText.search(studentsService.data[0].name) === -1).toBeTruthy();
+      });
+
+      // testing second button that moving data from left table to right one
+      describe('TwoTableDragAndDropComponent -> testing moving table elements from first to second table', () => {
+        beforeEach(() => {
+          const button: HTMLButtonElement = fixture.elementRef.nativeElement.querySelectorAll('button')[1];
+          button.click();
+          fixture.detectChanges();
+        });
+
+        it('Should second table have data', () => {
+          expect(fixture.elementRef.nativeElement.querySelectorAll('mat-table')[1].innerText).toContain(studentsService.data[0].name);
+        });
+
+        it('first table should not contain any data', () => {
+          expect(
+            fixture.elementRef.nativeElement.querySelectorAll('mat-table')[0]
+              .innerText.search(studentsService.data[0].name) === -1).toBeTruthy();
+        });
+      });
     });
   });
 });
