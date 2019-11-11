@@ -1,7 +1,14 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule, MatButtonToggleModule, MatInputModule, MatCheckbox, MatCheckboxModule, MatIconModule } from '@angular/material';
+import {
+  MatTableModule,
+  MatButtonToggleModule,
+  MatInputModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatTooltipModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -16,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     FlexLayoutModule,
     DragDropModule,
+    MatTooltipModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -25,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     FlexLayoutModule,
     MatIconModule,
+    MatTooltipModule,
     DragDropModule,
     ReactiveFormsModule
   ]

@@ -10,6 +10,9 @@ import { SortingMaterialTableComponent } from '../sorting-material-table/sorting
 import { MultiSelectMatTableComponent } from '../multi-select-mat-table/multi-select-mat-table.component';
 import { TwoTablesDragAndDropComponent } from '../two-tables-drag-and-drop/two-tables-drag-and-drop.component';
 
+/**
+ * Routing for tables examples paths
+ */
 const routes: Routes = [
   {
     path:      'matTableExamples',

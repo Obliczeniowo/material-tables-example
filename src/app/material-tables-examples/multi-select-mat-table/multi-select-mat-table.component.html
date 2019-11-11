@@ -3,12 +3,12 @@
   <ng-container matColumnDef="select">
     <mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()">
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [matTooltip]="checkboxToolTipText()">
       </mat-checkbox>
     </mat-header-cell>
     <mat-cell *matCellDef="let element">
       <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null"
-        [checked]="selection.isSelected(element)">
+        [checked]="selection.isSelected(element)" [matTooltip]="checkboxToolTipText(element)">
       </mat-checkbox>
     </mat-cell>
   </ng-container>

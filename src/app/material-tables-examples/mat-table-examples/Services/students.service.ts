@@ -1,11 +1,17 @@
 import { Student } from './../../Interfaces/student';
 import { Injectable } from '@angular/core';
 
+/**
+ * this service contains data to display in tables
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class StudentsService {
 
+  /**
+   * array of students
+   */
   data: Student[] =
   [
     {
