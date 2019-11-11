@@ -11,12 +11,18 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class MultiSelectMatTableComponent extends AbstractMulitSelectMatTableComponent<Student> implements OnInit {
 
+  /**
+   * @param studentsService service that contains data to display in table
+   */
   constructor(
     private studentsService: StudentsService
   ) {
     super();
   }
 
+  /**
+   * initialize base class object
+   */
   ngOnInit() {
     this.displayedColumns = [
       'select',
@@ -24,6 +30,7 @@ export class MultiSelectMatTableComponent extends AbstractMulitSelectMatTableCom
       'surname',
       'age'
     ];
+
     this.dataSource.data = this.studentsService.data;
     this.selection = new SelectionModel<Student>(true, []);
   }

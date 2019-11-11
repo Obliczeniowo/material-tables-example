@@ -5,10 +5,19 @@ import { DataSource } from '@angular/cdk/table';
 import { Observable, of } from 'rxjs';
 import { Student } from '../Interfaces/student';
 
+/**
+ * This class inheritance DataSource class to override returned data for expandable table
+ */
 export class ExampleDataSource<RECORD_TYPE> extends DataSource<RECORD_TYPE> {
 
-  data: any[] = [];
+  /**
+   * table data
+   */
+  data: RECORD_TYPE[] = [];
 
+  /**
+   * override method that was triggered to get data to display in table
+   */
   connect(): Observable<RECORD_TYPE[]> {
     const rows = [];
     this.data.forEach(element => rows.push(element, { detailRow: true, element }));
@@ -18,6 +27,9 @@ export class ExampleDataSource<RECORD_TYPE> extends DataSource<RECORD_TYPE> {
   disconnect() { }
 }
 
+/**
+ * This component is expample of expandable table
+ */
 @Component({
   selector: 'app-expandable-material-table',
   templateUrl: './expandable-material-table.component.html',
@@ -31,14 +43,27 @@ export class ExampleDataSource<RECORD_TYPE> extends DataSource<RECORD_TYPE> {
   ],
 })
 export class ExpandableMaterialTableComponent implements OnInit {
+  /**
+   * material table columns names
+   */
   displayedColumns = ['name', 'surname', 'age'];
+
 
   expandedElement: any;
 
+  /**
+   * material table data template object that contain data to display in table
+   */
   dataSource = new ExampleDataSource<Student>();
 
+  /**
+   * this field contain method that is triggered to checkout if table element have some extra data
+   */
   isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
 
+  /**
+   * @param studentsService service that contains data for table
+   */
   constructor(
     private studentsService: StudentsService
   ) {
@@ -49,4 +74,3 @@ export class ExpandableMaterialTableComponent implements OnInit {
   }
 
 }
-

@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener, AfterViewInit } from '@angular/core';
 import { MatTable } from '@angular/material';
 
+/**
+ * Abstract class component needed to make resizable table
+ */
 @Component({
   selector: 'app-abstract-resizable-material-table',
   templateUrl: './abstract-resizable-material-table.component.html',
@@ -8,31 +11,79 @@ import { MatTable } from '@angular/material';
 })
 export class AbstractResizableMaterialTableComponent implements OnInit, AfterViewInit {
 
+  /**
+   * contain reference to material table
+   */
   @ViewChild(MatTable, { read: ElementRef, static: false }) protected matTableRef: ElementRef;
 
+  /**
+   * flag that determine if resize cursor should be displayed or not (depends on current position
+   * of mouse pointer over the table header)
+   */
   resizeCursor = false;
 
+  /**
+   * flag that determinate if mouse button is pressed
+   */
   pressed = false;
+
+  /**
+   * contains index of column, that was in resize mode
+   */
   currentResizeIndex: number;
+
+  /**
+   * start point of resizing
+   */
   startX: number;
+  /**
+   * start column width
+   */
   startWidth: number;
+
   isResizingRight: boolean;
+
+  /**
+   * abstract field will contain method to listener of mouse move event of inheritance object
+   */
   resizableMousemove: () => void;
+  /**
+   * abstract field will contain method to listener of mouse button up event of inheritance object
+   */
   resizableMouseup: () => void;
 
+  /**
+   * table columns object
+   */
   columns: any[];
+
+  /**
+   * Displayed columns table
+   */
   displayedColumns: string[] = [];
 
+  /**
+   * @param renderer this object give some access to inheritance class
+   */
   constructor(protected renderer: Renderer2) { }
 
+  /**
+   * Initialize columns
+   */
   ngOnInit() {
     this.setDisplayedColumns();
   }
 
+  /**
+   * Initialize view
+   */
   ngAfterViewInit() {
     this.setTableResize(this.matTableRef.nativeElement.clientWidth);
   }
 
+  /**
+   * @param tableWidth table width
+   */
   setTableResize(tableWidth: number) {
     let totWidth = 0;
     this.columns.forEach((column) => {
@@ -45,6 +96,9 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     });
   }
 
+  /**
+   * Set displayed column
+   */
   setDisplayedColumns() {
     this.columns.forEach((column, index) => {
       column.index = index;
@@ -52,7 +106,11 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     });
   }
 
-  onMouseMove(event: any) {
+  /**
+   * Method trigerred when mouse is moved ocer the header cell
+   * @param event event object
+   */
+  mouseMoveEvent(event: any) {
     const endPos = event.target.offsetLeft + event.target.clientWidth;
 
     if (endPos - event.pageX > 10 && endPos - event.pageX >= 0) {
@@ -62,7 +120,12 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     }
   }
 
-  onResizeColumn(event: any, index: number) {
+  /**
+   * Method triggered, whem table column was triggered
+   * @param event event object
+   * @param index index of clicked column
+   */
+  resizeColumn(event: any, index: number) {
     this.checkResizing(event, index);
     this.currentResizeIndex = index;
     this.startX = event.pageX;
@@ -80,6 +143,12 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     this.mouseMove(index);
   }
 
+  /**
+   * Method used in [resizeColumn]{@link AbstractResizableMaterialTableComponent} to check, if column
+   * is in resizing mode or not
+   * @param event event from resizeColumn method
+   * @param index index of clicked column
+   */
   protected checkResizing(event, index) {
     const cellData = this.getCellData(index);
     if ((index === 0) || (Math.abs(event.pageX - cellData.right) < cellData.width / 2 && index !== this.columns.length - 1)) {
@@ -89,12 +158,21 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     }
   }
 
-  protected getCellData(index: number) {
+  /**
+   * Return bouunding rect as DOMRect object
+   * @param index index of column
+   * @return bouunding rect of index column
+   */
+  protected getCellData(index: number): DOMRect {
     const headerRow = this.matTableRef.nativeElement.children[0];
     const cell = headerRow.children[index];
     return cell.getBoundingClientRect();
   }
 
+  /**
+   * method used on mouse move
+   * @param index index of resize mode column
+   */
   mouseMove(index: number) {
     this.resizableMousemove = this.renderer.listen('document', 'mousemove', (event) => {
       if (this.pressed && event.buttons) {
@@ -115,6 +193,11 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     });
   }
 
+  /**
+   * This method set column width on change mouse pos
+   * @param index index of column
+   * @param width width of column
+   */
   setColumnWidthChanges(index: number, width: number) {
     const orgWidth = this.columns[index].width;
     const dx = width - orgWidth;
@@ -130,6 +213,10 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     }
   }
 
+  /**
+   * Set colums width by column object
+   * @param column column element
+   */
   setColumnWidth(column: any) {
     const columnEls = Array.from(document.getElementsByClassName('mat-column-' + column.field));
     columnEls.forEach((el: HTMLDivElement) => {
@@ -137,6 +224,10 @@ export class AbstractResizableMaterialTableComponent implements OnInit, AfterVie
     });
   }
 
+  /**
+   * Listening on resize event
+   * @param event resize event
+   */
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setTableResize(this.matTableRef.nativeElement.clientWidth);

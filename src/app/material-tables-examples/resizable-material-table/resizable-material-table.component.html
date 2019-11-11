@@ -1,16 +1,16 @@
 <mat-table [dataSource]="dataSource" cdkDropListGroup matSort>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef="let element;" (mousemove)="!pressed ? onMouseMove($event) : null"
-      [ngClass]="{'show-resize-cursor': resizeCursor}" (mousedown)="onResizeColumn($event, 0)" mat-sort-header>
+    <mat-header-cell *matHeaderCellDef="let element;" (mousemove)="!pressed ? mouseMoveEvent($event) : null"
+      [ngClass]="{'show-resize-cursor': resizeCursor}" (mousedown)="resizeColumn($event, 0)" mat-sort-header>
       Imię
     </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="surname">
-    <mat-header-cell *matHeaderCellDef="let element;" (mousemove)="!pressed ? onMouseMove($event) : null"
-      [ngClass]="{'show-resize-cursor': resizeCursor}" (mousedown)="onResizeColumn($event, 1)">
+    <mat-header-cell *matHeaderCellDef="let element;" (mousemove)="!pressed ? mouseMoveEvent($event) : null"
+      [ngClass]="{'show-resize-cursor': resizeCursor}" (mousedown)="resizeColumn($event, 1)">
       Nazwisko
     </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{ element.surname }} </mat-cell>
