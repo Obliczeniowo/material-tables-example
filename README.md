@@ -2,6 +2,8 @@
 
 Owner of page http://www.obliczeniowo.com.pl
 
+This is a project that contains all most popular solutions for **material table**. You can see here examples of different material tables that shows you how to add more functionality to basic material tables. I add some basic tests and basic documentation made in **compodoc**.
+
 # MaterialTablesExample
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
