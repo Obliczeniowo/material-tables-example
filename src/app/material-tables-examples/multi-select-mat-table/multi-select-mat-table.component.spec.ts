@@ -44,6 +44,7 @@ describe('MultiSelectMatTableComponent', () => {
       const element: HTMLElement = fixture.elementRef.nativeElement.querySelector('mat-checkbox').querySelector('label');
       element.click();
       fixture.detectChanges();
+
     });
 
     it('Should have selected all elements', () => {
