@@ -85,7 +85,6 @@ describe('MultiSelectMatTableComponent', () => {
         fixture.whenStable().then(() => {
           expect(firstCheckbox.classList.contains('mat-checkbox-indeterminate')).toBeTruthy();
         });
-
       });
 
     });
